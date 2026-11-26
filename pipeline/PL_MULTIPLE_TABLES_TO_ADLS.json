@@ -1,0 +1,92 @@
+{
+	"name": "PL_MULTIPLE_TABLES_TO_ADLS",
+	"properties": {
+		"activities": [
+			{
+				"name": "LKP_WATERMARK_TABLE",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT TableSchema, TableName, WatermarkColumn, LastLoadValue FROM dbo.ADF_Watermark_Table;",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_WaterMarkTable",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEachTable",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "LKP_WATERMARK_TABLE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('LKP_WATERMARK_TABLE').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "EXECUTE_CHILD_INCREMENTAL_PL",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"policy": {
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "PL_CHILD_INCREMENTAL_LOAD",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"TableSchema": {
+										"value": "@item().TableSchema",
+										"type": "Expression"
+									},
+									"TableName": {
+										"value": "@item().TableName",
+										"type": "Expression"
+									},
+									"WatermarkColumn": {
+										"value": "@item().WatermarkColumn",
+										"type": "Expression"
+									},
+									"LastLoadValue": {
+										"value": "@item().LastLoadValue",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-11-26T09:25:52Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

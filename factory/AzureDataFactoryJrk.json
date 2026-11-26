@@ -1,0 +1,16 @@
+{
+	"name": "AzureDataFactoryJrk",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true,
+			"isExplicitlySet": false
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3a926f54-f13f-4df0-b786-08d975f10407",
+		"tenantId": "6e127cf8-17a8-4706-b1d3-12cf33195726"
+	}
+}

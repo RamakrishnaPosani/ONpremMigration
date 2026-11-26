@@ -1,0 +1,24 @@
+{
+	"name": "Trigger_Multiple_Files",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_PROCESS_MULTIPLE_CSV",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2026-11-05T21:00:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
