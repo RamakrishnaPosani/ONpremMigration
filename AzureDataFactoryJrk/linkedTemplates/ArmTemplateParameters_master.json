@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "AzureDataFactoryJrk"
+		},
+		"ADLS_JRK_accountKey": {
+			"value": ""
+		},
+		"LS_SQLSERVER_password": {
+			"value": ""
+		},
+		"LS_SQL_VISIONBOARD_DB_password": {
+			"value": ""
+		},
+		"ADLS_JRK_properties_typeProperties_url": {
+			"value": "https://adlsjrk.dfs.core.windows.net/"
+		},
+		"LS_SQLSERVER_properties_typeProperties_server": {
+			"value": "KITTU\\SQLEXPRESS"
+		},
+		"LS_SQLSERVER_properties_typeProperties_database": {
+			"value": "AdventureWorks2019"
+		},
+		"LS_SQLSERVER_properties_typeProperties_userName": {
+			"value": "sa"
+		},
+		"LS_SQL_VISIONBOARD_DB_properties_typeProperties_server": {
+			"value": "KITTU\\SQLEXPRESS"
+		},
+		"LS_SQL_VISIONBOARD_DB_properties_typeProperties_database": {
+			"value": "VISIONBOARD"
+		},
+		"LS_SQL_VISIONBOARD_DB_properties_typeProperties_userName": {
+			"value": "sa"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
